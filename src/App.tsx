@@ -1,46 +1,11 @@
 import { useReducer } from "react";
 import { Button, ButtonGroup, Card, Container } from "react-bootstrap";
+import {reducer, State} from "./reducer"
 
-interface State {
-    count: number;
-    error: string | null;
-}
-
-interface Action {
-    type: "increment" | "decrement";
-    payload: number | null
-}
-
-const reducer = (state: State, action: Action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case "increment": {
-            const newCount = payload == null ? state.count + 1 : state.count + payload;
-            const hasError = newCount > 12;
-            return {
-                ...state,
-                count: newCount,
-                error : hasError ? "Reached max count" : null
-            }
-        }
-        case "decrement": {
-            const newCount = payload == null ? state.count - 1 : state.count - payload;
-            const hasError = newCount < 0;
-            return {
-                ...state,
-                count: newCount,
-                error : hasError ? "Reached min count" : null
-            }
-        }
-        default:
-            return state;
-    }
-}
 
 const App = () => {
 
-    const [state, dispatch] = useReducer(reducer, { count: 0, error: null });
+    const [state, dispatch] = useReducer(reducer, { count: 0, error: null } as State);
 
     return (
         <Container className="mt-5">
